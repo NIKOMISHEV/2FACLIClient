@@ -6,7 +6,7 @@ namespace TwoFA.Encryption;
 internal record AesDataProtectorOptions
 {
     public string HashAlgorithm { get; init; } = "SHA256";
-    public int Iterations { get; init; } = 500000;
+    public int Iterations { get; init; } = 600000;
     public CipherMode CipherMode { get; init; } = CipherMode.CBC;
     public int SaltLength { get; init; } = 16;
     public int KeyLength { get; init; } = 32;
