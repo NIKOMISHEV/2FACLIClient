@@ -162,6 +162,9 @@
   <data name="OPT_OTP" xml:space="preserve">
     <value>Huidige OTP code</value>
   </data>
+  <data name="OPT_SHOWSECRET" xml:space="preserve">
+    <value>Toon geheim (Waarschuwing: gebruik op eigen risico!)</value>
+  </data>
   <data name="OPT_USERNAME" xml:space="preserve">
     <value>Gebruikersnaam (emailadres)</value>
   </data>

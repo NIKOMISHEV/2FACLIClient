@@ -54,6 +54,9 @@ internal class Program
         var findOption = new Option<string?>("--find", Translations.OPT_FIND);
         findOption.AddAlias("-f");
 
+        var showSecret = new Option<bool>("--showsecret", Translations.OPT_SHOWSECRET);
+        showSecret.AddAlias("-s");
+
         var usernameOption = new Option<string>("--username", Translations.OPT_USERNAME) { IsRequired = true };
         usernameOption.AddAlias("-u");
 
@@ -72,10 +75,11 @@ internal class Program
             ctx.GetCancellationToken()
         ).ConfigureAwait(false));
 
-        var listcommand = new Command("list", Translations.CMD_LIST) { fileOption, findOption };
+        var listcommand = new Command("list", Translations.CMD_LIST) { fileOption, findOption, showSecret };
         listcommand.SetHandler(async (ctx) => await List(
             ctx.ParseResult.GetValueForOption(fileOption)!,
             ctx.ParseResult.GetValueForOption(findOption),
+            ctx.ParseResult.GetValueForOption<bool>(showSecret),
             ctx.GetCancellationToken()
         ).ConfigureAwait(false));
 
@@ -114,7 +118,7 @@ internal class Program
         Console.WriteLine(Translations.STATUS_LOCALVAULT_UPDATED);
     }
 
-    private static async Task List(FileInfo vaultFile, string? find, CancellationToken cancellationToken = default)
+    private static async Task List(FileInfo vaultFile, string? find, bool showSecret, CancellationToken cancellationToken = default)
     {
         var dp = new AesDataProtector(Options.Create(_vaultoptions));
         var password = ReadPassword(Translations.PROMPT_LOCALVAULT_PWD, cancellationToken);
@@ -134,7 +138,7 @@ internal class Program
             var options = new TwoFACalculatorOptions { Digits = account.Digits, Period = account.TimeStep, Algorithm = account.Algorithm };
             var calc = _calculators.GetOrAdd(options, o => new TwoFACalculator(Options.Create(o)));
             Console.WriteLine(
-                $"{account.IssuerName?.PadRight(maxlen)} : {calc.GetCode(account.Secret),-10} ({string.Join(", ", new[] { account.UserName, account.OriginalIssuerName }.Where(s => !string.IsNullOrEmpty(s)).Distinct())})"
+                $"{account.IssuerName?.PadRight(maxlen)} : {calc.GetCode(account.Secret),-10} ({string.Join(", ", new[] { account.UserName, account.OriginalIssuerName }.Where(s => !string.IsNullOrEmpty(s)).Distinct())}) {(showSecret ? $"[{account.Secret}]" : string.Empty)}"
             );
         }
         Console.WriteLine(string.Format(Translations.STATUS_ACCOUNTS_MATCHED, matchingaccounts.Length));

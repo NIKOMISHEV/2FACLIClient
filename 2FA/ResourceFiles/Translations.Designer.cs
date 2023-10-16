@@ -196,6 +196,15 @@ namespace TwoFA.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show secret (Warning: use at own risk!).
+        /// </summary>
+        internal static string OPT_SHOWSECRET {
+            get {
+                return ResourceManager.GetString("OPT_SHOWSECRET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username (emailaddress).
         /// </summary>
         internal static string OPT_USERNAME {

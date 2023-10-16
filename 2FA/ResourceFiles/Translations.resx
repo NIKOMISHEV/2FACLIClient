@@ -162,6 +162,9 @@
   <data name="OPT_OTP" xml:space="preserve">
     <value>Current OTP code</value>
   </data>
+  <data name="OPT_SHOWSECRET" xml:space="preserve">
+    <value>Show secret (Warning: use at own risk!)</value>
+  </data>
   <data name="OPT_USERNAME" xml:space="preserve">
     <value>Username (emailaddress)</value>
   </data>
