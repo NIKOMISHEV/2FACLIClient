@@ -1,0 +1,1 @@
+[{"vesion":"1.1","config":[{"EtherCatCfg":[{"Master":{"_Info":{"_Name":"","_Destination":"","_Source":"","_EtherType":""},"_MailboxStates":{"_StartAddr":0,"_Count":0},"_InitCmds":{"_InitCmd":[]}},"Slave":[],"Cyclic":{"_Frame":{"_Cmd":[]}},"ProcessImage":{}}]}]}]
